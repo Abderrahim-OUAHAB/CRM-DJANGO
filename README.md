@@ -1,3 +1,5 @@
+![](1.png)
+
 # Customer Relationship Management Django
 
 Ce projet est un système de gestion de la relation client (CRM) développé avec Django. Il permet de gérer les clients, les commandes et les produits avec des fonctionnalités CRUD complètes. Il offre également la possibilité de télécharger les données en formats CSV et PDF, ainsi qu'un tableau de bord interactif pour visualiser et filtrer les données.
