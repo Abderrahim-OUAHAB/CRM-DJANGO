@@ -1,0 +1,286 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block contenu %}
+
+<style>
+
+    .welcome-section {
+    display:block;
+
+        text-align: center;
+        padding: 50px 20px;
+        background: linear-gradient(180deg, black,aqua);
+    width:70%;
+        box-shadow: 0px 20px 30px 20px rgba(0, 0, 0);
+    border-radius:0 0 1000px 1000px;
+        margin:0 auto;
+        margin-bottom:13%;
+        color: #fff;
+        border:2px solid white;
+    }
+
+    .welcome-section h1 {
+        font-size: 26px;
+        margin-bottom: 20px;
+        font-weight: bold;
+     font-family:Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .welcome-section img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        transition: transform 0.3s ease;
+    }
+
+    .welcome-section:hover img {
+        transform: scale(1.1);
+
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+          margin-bottom:13%;
+    }
+
+    .nav-button {
+        display: inline-block;
+        padding: 50px;
+        margin: 10px 1%;
+        background: linear-gradient(360deg, black, purple);
+        color: white !important;
+        border: none;
+        font-size: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 10px;
+        transition: all 0.5s ease;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-button i {
+        margin-left: 8px;
+    }
+
+    .nav-button:hover {
+        background: linear-gradient(180deg, #ff66cc, #9933ff);
+        transform: scale(1.05);
+
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-button:active {
+        transform: translateY(5px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          color:black;
+    }
+
+    .statistics-section {
+        padding: 50px 20px;
+      background: linear-gradient(to top left, grey, black);
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: #fff;
+          margin-bottom:13%;
+    }
+
+    .statistics-section h2 {
+        font-size: 36px;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    .statistics-card {
+        border-radius: 10px;
+        padding: 30px;
+  background: linear-gradient(180deg, aqua, black);
+        margin: 20px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+    }
+   .statistics-card:hover{
+      transform: scale(1.07);
+   }
+    .statistics-card .card-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .statistics-card .card-text {
+        font-size: 20px;
+        color: #999;
+    }
+
+    .prod-section {
+        padding: 50px 20px;
+         background: linear-gradient(to bottom right, purple, black);
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+         margin-bottom:13%;
+        color: #fff;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .prod-section h2 {
+        font-size: 36px;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    .product-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card img {
+        max-height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card img:hover {
+        transform: scale(1.1);
+    }
+
+    .product-card .card-body {
+        padding: 15px;
+        background-color: #6633ff;
+    }
+
+    .product-card .card-title {
+        font-size: 22px;
+        font-weight: bold;
+        color: #ffff;
+    }
+
+    .product-card .card-text {
+        font-size: 18px;
+        color: #ffff;
+    }
+
+    .btn-primary {
+        background-color: purple;
+        border: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #9933ff;
+        transform: scale(1.05);
+    }
+
+
+
+#clockContainer{
+    border: 2px solid rgb(255, 255, 255);
+    display: block;
+    width: 230px;
+    height: 50px;
+    margin: 0% auto;
+    background:linear-gradient(180deg,grey,black);
+    color: aliceblue;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 20px;
+    margin-top:2% ;
+
+}
+
+#clock{
+    font-family: monospace;
+}
+</style>
+
+<div class="welcome-section">
+    <h1>Bienvenue dans <strong>WAHHABSHOP</strong>, cher {{ request.user }} !</h1>
+    <img src="{% static 'images/logoo.png' %}" alt="Logo Wahhabshop">
+    <div id="clockContainer">
+    <div id="clock">00:00:00</div>
+</div>
+</div>
+
+<div class="navigation">
+    <a href="{% url 'page_prod' %}" class="nav-button">Découvrir nos Produits <i class="fas fa-box"></i></a>
+    <a href="{% url 'list_commande' %}" class="nav-button">Voir les Commandes <i class="fas fa-shopping-cart"></i></a>
+    <a href="{% url 'page_cli' %}" class="nav-button">Explorer les Clients <i class="fas fa-users"></i></a>
+</div>
+
+<div class="container statistics-section">
+    <h2 class="text-center mb-4">Statistiques</h2>
+    <div class="row text-center" >
+        <div class="col-md-4">
+          <a href="{% url 'dash_prod' %} " style="text-decoration :none" >    <div class="statistics-card" style="height:79%">
+                <h5 class="card-title">Produits en stock</h5>
+                <p class="card-text">{{ total_produits }}</p>
+            </div></a>
+        </div>
+ <div class="col-md-4">
+                <a href="{% url 'commande_dashboard_view' %} " style="text-decoration :none">  <div class="statistics-card" style="height:79%">
+                <h5 class="card-title">Commandes totales</h5>
+                <p class="card-text">{{ total_commandes }}</p>
+          </div></a>
+        </div>
+        <div class="col-md-4">
+          <a href="{% url 'client_dashboard_view' %} " style="text-decoration :none">    <div class="statistics-card" style="height:79%">
+                <h5 class="card-title">Clients enregistrés</h5>
+                <p class="card-text">{{ total_clients }}</p>
+            </div></a>
+        </div>
+    </div>
+</div>
+
+<div class="container prod-section" >
+    <h2 class="text-center mb-4">Nouveaux Produits</h2>
+    <div class="row">
+        {% for produit in nouveaux_produits %}
+        <div class="col-md-3 mb-4">
+            <div class="card product-card" style="height:100%">
+                <a href="{{ produit.image_url }}" target="_blank">
+                    <img style="height:300px" src="{{ produit.image_url }}" class="card-img-top" alt="{{ produit.designation }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ produit.designation }}</h5>
+                    <p class="card-text">{{ produit.prix }} DH</p>
+                    <i class="fas fa-shopping-bag" style="color:green"></i>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center">
+        <a href="{% url 'page_prod' %}" class="btn btn-primary">Voir tous les produits</a>
+    </div>
+</div>
+<script>
+    function updateClock(){
+    const now =new Date();
+    let h=now.getHours();
+    const meridium=h >=12 ? "PM" : "AM";
+    h=h % 12 || 12;
+    h=h.toString().padStart(2,0);
+    const m=now.getMinutes().toString().padStart(2,0);
+    const s=now.getSeconds().toString().padStart(2,0);
+    const time=`${h}:${m}:${s}${meridium}`;
+    document.getElementById("clock").textContent=time;
+}
+updateClock();
+setInterval(updateClock,1000);
+</script>
+{% endblock %}

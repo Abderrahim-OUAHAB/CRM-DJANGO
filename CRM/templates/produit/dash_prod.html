@@ -1,0 +1,146 @@
+{% extends 'main.html' %}
+
+{% block contenu %}
+<style>
+    .card-body {
+        padding: 20px; /* Ajouter un padding aux card-body pour l'espace entre les graphiques */
+    }
+    .card-footer {
+        background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent noir pour le footer */
+        color: white; /* Texte en blanc */
+        padding: 20px; /* Espacement interne du footer */
+    }
+    .chart-container {
+        margin-bottom: 30%; /* Ajouter une marge en bas pour l'espace entre les graphiques et le footer */
+    }
+</style>
+
+<div class="container mt-5" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+
+
+    <div class="chart-container" >
+
+        <div class="card-deck">
+            <div class="bg-primary" style="background: linear-gradient(to top left,black,aqua);border-radius:10px;"> <h2 class="text-center mb-4" style="color:white">Tableau de Bord des Produits <i class="fas fa-chart-bar"></i></h2></div>
+            <!-- Card 1 : Graphique des prix des produits -->
+            <div class="card" style="  background: linear-gradient(to top left,black,grey);">
+
+                <div class="card-body" style="height:400px;text-align:center;padding-left:180px;">
+                    <canvas id="prixProduitsChart"></canvas>
+                </div>
+                <div class="card-footer" style="text-align:center">
+                    Prix des Produits
+                </div>
+            </div>
+
+            <!-- Espacement entre les deux cards -->
+            <div class="w-100 d-block d-md-none"></div>
+            <div class="w-100 d-none d-md-block d-lg-none"></div>
+            <div class="w-100 d-none d-lg-block d-xl-none"></div>
+            <div class="w-100 d-none d-xl-block"></div>
+
+            <!-- Card 2 : Graphique des quantités en stock des produits -->
+            <div class="card"  style="  background: linear-gradient(to top left,black,grey);">
+                <div class="card-body" style="height:400px;text-align:center;padding-left:180px;">
+                    <canvas id="quantiteProduitsChart"></canvas>
+                </div>
+                <div class="card-footer" style="text-align:center">
+                    Quantité en Stock des Produits
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Récupération des données depuis Django
+        var designations = [{% for designation in designations_produits %}'{{ designation }}',{% endfor %}];
+        var prix = [{% for prix in prix_produits %}{{ prix }},{% endfor %}];
+        var quantiteStock = [{% for quantite in quantite_stock_produits %}{{ quantite }},{% endfor %}];
+
+        // Configuration du graphique des prix des produits
+        var prixProduitsData = {
+            labels: designations,
+            datasets: [{
+                label: 'Prix des Produits',
+                data: prix,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var prixProduitsOptions = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white' // Couleur blanche pour les ticks sur l'axe Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: 'white' // Couleur blanche pour les ticks sur l'axe X
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white' // Couleur blanche pour les labels de la légende
+                    }
+                }
+            }
+        };
+
+        var prixProduitsChart = new Chart(document.getElementById('prixProduitsChart'), {
+            type: 'bar',
+            data: prixProduitsData,
+            options: prixProduitsOptions
+        });
+
+        // Configuration du graphique des quantités en stock des produits
+        var quantiteProduitsData = {
+            labels: designations,
+            datasets: [{
+                label: 'Quantité en Stock des Produits',
+                data: quantiteStock,
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var quantiteProduitsOptions = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white' // Couleur blanche pour les ticks sur l'axe Y
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: 'white' // Couleur blanche pour les ticks sur l'axe X
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white' // Couleur blanche pour les labels de la légende
+                    }
+                }
+            }
+        };
+
+        var quantiteProduitsChart = new Chart(document.getElementById('quantiteProduitsChart'), {
+            type: 'bar',
+            data: quantiteProduitsData,
+            options: quantiteProduitsOptions
+        });
+    });
+</script>
+{% endblock %}

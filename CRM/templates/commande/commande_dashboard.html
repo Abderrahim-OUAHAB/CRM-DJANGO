@@ -1,0 +1,143 @@
+{% extends 'main.html' %}
+
+{% block contenu %}
+<style>
+
+    .card-footer {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 20px;
+    }
+    .chart-container {
+        margin-bottom: 30%;
+
+    }
+</style>
+
+<div class="container mt-5" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" >
+    <div class="chart-container" >
+        <div class="card-deck" >
+            <div class="bg-primary" style="background: linear-gradient(to top left,black,aqua);border-radius:10px;">
+                <h2 class="text-center mb-4" style="color:white;border-radius:10px;">Tableau de Bord des Commandes <i class="fas fa-chart-bar"></i></h2>
+            </div>
+            <div class="card"  style="  background: linear-gradient(to top left,black,grey);">
+                <div class="card-body" style="height:400px;text-align:center;padding-left:100px;" >
+                    <canvas  id="clientTotalAmountChart"></canvas>
+                </div>
+                <div class="card-footer" style="text-align:center">
+                    Total Montant des Commandes par Produit
+                </div>
+            </div>
+            <div class="card"  style="  background: linear-gradient(to top left,black,grey);">
+                <div class="card-body" style="height:400px;text-align:center;padding-left:280px;">
+                    <canvas   style="height:10px;" id="clientOrderCountChart"></canvas>
+                </div>
+                <div class="card-footer" style="text-align:center">
+                    Nombre de Commandes par Produit
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var clientNames = [{% for name in client_names %}'{{ name }}',{% endfor %}];
+        var clientTotalAmounts = [{% for amount in client_total_amounts %}{{ amount }},{% endfor %}];
+        var clientOrderCounts = [{% for count in client_order_counts %}{{ count }},{% endfor %}];
+
+        var clientTotalAmountData = {
+            labels: clientNames,
+            datasets: [{
+                label: 'Total Montant des Commandes',
+                data: clientTotalAmounts,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var clientTotalAmountOptions = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: 'white'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        };
+
+        var clientTotalAmountChart = new Chart(document.getElementById('clientTotalAmountChart'), {
+            type: 'bar',
+            data: clientTotalAmountData,
+            options: clientTotalAmountOptions
+        });
+
+        var clientOrderCountData = {
+            labels: clientNames,
+            datasets: [{
+                label: 'Nombre de Commandes',
+                data: clientOrderCounts,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        var clientOrderCountOptions = {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            let value = context.raw;
+                            let percentage = ((value / total) * 100).toFixed(2);
+                            return `${value} commandes (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        };
+
+        var clientOrderCountChart = new Chart(document.getElementById('clientOrderCountChart'), {
+            type: 'pie',
+            data: clientOrderCountData,
+            options: clientOrderCountOptions
+        });
+    });
+</script>
+{% endblock %}

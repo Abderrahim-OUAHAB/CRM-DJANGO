@@ -1,0 +1,22 @@
+
+    body{
+
+            height: 100%;
+            width:100%;
+            background-image: url("../images/image.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: none;
+        }
+
+            .card-body {
+        padding: 20px; /* Ajouter un padding aux card-body pour l'espace entre les graphiques */
+    }
+    .card-footer {
+        background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent noir pour le footer */
+        color: white; /* Texte en blanc */
+        padding: 20px; /* Espacement interne du footer */
+    }
+    .chart-container {
+        margin-bottom: 30%; /* Ajouter une marge en bas pour l'espace entre les graphiques et le footer */
+    }

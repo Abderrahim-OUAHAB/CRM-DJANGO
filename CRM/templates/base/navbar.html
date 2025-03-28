@@ -1,0 +1,89 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm"  style=" background: linear-gradient(360deg,rgb(0,145,255),black);font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img src="{% static 'images/logoo.png' %}" alt="Logo" style="width: 23px; height: 23px;" class="d-inline-block align-text-top">
+      WAHHABSHOP
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'home' %}">
+            <i class="fas fa-home"></i> Accueil
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'page_prod' %}">
+            <i class="fas fa-box"></i> Produits
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'page_cli' %}">
+            <i class="fas fa-users"></i> Clients
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'list_commande' %}">
+            <i class="fas fa-shopping-cart"></i> Commandes
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <p class="nav-link mb-0 text-white">
+            <i class="fas fa-user"></i> {{ request.user }}
+          </p>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light" href="{% url 'quitter' %}">
+            <i class="fas fa-sign-out-alt"></i> Déconnexion
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar-nav .nav-link {
+      transition: color 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+      color: #ffffff;
+  }
+
+  .navbar-nav .nav-link i {
+      margin-right: 8px;
+  }
+
+  .navbar-nav .nav-link:hover {
+      color:black; /* Color change on hover */
+  }
+
+  .btn-outline-light {
+      transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+  }
+
+  .btn-outline-light i {
+      margin-right: 8px;
+  }
+
+  .btn-outline-light:hover {
+      background-color: #fff;
+      color: #343a40; /* Color change on hover */
+  }
+
+  .navbar-brand img {
+      transition: transform 0.3s ease;
+  }
+
+  .navbar-brand:hover img {
+      transform: scale(1.1);
+  }
+</style>

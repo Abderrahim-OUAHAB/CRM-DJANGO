@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+{% block contenu %}
+<div class="row justify-content-center" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+    <div class="col-md-6" >
+        <div class="card card-body" style="background:linear-gradient(to top left,black,white)">
+<p>Voulez-vous supprimer ce produit?</p>
+<form action="{% url 'supprimer_produit' item.id %} " method="POST">
+    {% csrf_token%}
+    <a class="btn btn-sm btn-warning" href="{% url 'page_prod' %}">Annuler</a>
+    <input class="btn btn-danger" type="submit" name="Confirmer" value="Confirmer">
+</form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

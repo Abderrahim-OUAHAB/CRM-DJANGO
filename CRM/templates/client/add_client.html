@@ -1,0 +1,57 @@
+{% extends 'main.html' %}
+
+{% block contenu %}
+<div class="row justify-content-center my-4" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+    <div class="col-md-6" style="margin-bottom:10%">
+        <div class="card shadow-lg bg-info">
+            <div class="card-header bg-secondary text-white text-center">
+                <h4>Ajouter un client</h4>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                     <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                     <td>{{form.nom }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Prénom</th>
+                                          <td>{{ form.prenom }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Email</th>
+                                    <td>{{ form.email }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th>Téléphone</th>
+                                         <td>{{ form.telephone }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th ><p style="padding-bottom:100%">Adresse</p></th>
+
+                                    <td>{{ form.addresse }}</td>
+
+                                  </tr>
+                                  <tr>
+                                    <th>Société</th>
+
+                                    <td>{{ form.societe }}</td>
+                                  </tr>
+
+                            </thead>
+                     </table>
+
+
+
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-secondary btn-block">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
